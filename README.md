@@ -39,9 +39,9 @@ Esta práctica explora el **sistema de física de Unity** mediante 9 situaciones
 Para cada situación se describe qué objetos son físicos (con Rigidbody), cuáles sólo tienen Collider y cómo se comportan en la escena.
 
 ### Situación 1
-- **Descripción:** El plano no es un objeto físico. El cubo es un objeto físico y la esfera no.
-- **Configuración:** El plano y la esfera sólo tienen Collider; el cubo tiene Rigidbody (dinámico).
-- **Resultado esperado:** El cubo cae y colisiona con el plano; la esfera permanece estática si no tiene Rigidbody.
+- **Descripción:** El plano no es un objeto físico. La esfera es un objeto físico y el cubo no.
+- **Configuración:** El plano y el cubo sólo tienen Collider; la esfera tiene Rigidbody (dinámico).
+- **Resultado esperado:** La esfera cae y colisiona con el plano; el cubo permanece estática si no tiene Rigidbody.
 - **GIF:** ![Situación 1](./SIT_1.gif)
 
 ### Situación 2
@@ -59,47 +59,38 @@ Para cada situación se describe qué objetos son físicos (con Rigidbody), cuá
 ### Situación 4
 - **Descripción:** El plano es un objeto físico. El cubo es un objeto físico y la esfera es física.
 - **Configuración:** Todos llevan Rigidbody (dinámicos) y Colliders.
-- **Resultado esperado:** Interacciones físicas completas entre todos los objetos. El plano con Rigidbody puede caer si no está anclado (usa IsKinematic o ajusta constraints según sea necesario).
+- **Resultado esperado:** Interacciones físicas completas entre todos los objetos. El plano con Rigidbody va a caer si no está anclado.
 - **GIF:** ![Situación 4](./SIT_4.gif)
 
 ### Situación 5
 - **Descripción:** El plano es un objeto físico. El cubo es un objeto físico y la esfera es física con 10 veces más masa que el cubo.
 - **Configuración:** Todos con Rigidbody; ajustar la masa de la esfera a 10 veces la masa del cubo.
-- **Resultado esperado:** Al colisionar, la esfera domina el intercambio de momento; el cubo se ve más afectado por las colisiones.
+- **Resultado esperado:** Al colisionar, la esfera domina el intercambio de momento; el cubo se ve más afectado por las colisiones, si embargo caen igual todos.
 - **GIF:** ![Situación 5](./SIT_5.gif)
 
 ### Situación 6
 - **Descripción:** El plano es un objeto físico. El cubo es un objeto físico y la esfera es física con 100 veces más masa que el cubo.
 - **Configuración:** Todos con Rigidbody; masa de esfera = 100x masa del cubo.
-- **Resultado esperado:** La esfera apenas se ve afectada por colisiones con el cubo; el cubo sufre cambios importantes en velocidad/dirección.
+- **Resultado esperado:** La esfera apenas se ve afectada por colisiones con el cubo; el cubo sufre cambios importantes en velocidad/dirección, vuelve a no notarse poruqe caen todos por igual.
 - **GIF:** ![Situación 6](./SIT_6.gif)
 
 ### Situación 7
 - **Descripción:** El plano es un objeto físico. El cubo es un objeto físico y la esfera es física con fricción.
 - **Configuración:** Todos con Rigidbody; asignar Physic Material con fricción alta a la esfera (o al plano) según la prueba.
-- **Resultado esperado:** Deslizamiento reducido, pérdida de velocidad tangencial dependiendo de la fricción. Observa cómo la esfera rueda o se detiene más rápido según el material.
+- **Resultado esperado:** Se observa cómo la esfera rueda o se detiene más rápido según el material.
 - **GIF:** ![Situación 7](./SIT_7.gif)
 
 ### Situación 8
 - **Descripción:** El plano es un objeto físico. El cubo es un objeto físico y la esfera no es física y es Trigger.
 - **Configuración:** Todos con Rigidbody (el plano y el cubo dinámicos o cinemáticos según diseño), la esfera con Collider marcado Is Trigger = true. Nota: para que los triggers funcionen, al menos uno de los objetos debe tener Rigidbody.
-- **Resultado esperado:** La esfera no interfiere físicamente con otros objetos, pero dispara eventos OnTriggerEnter/Exit cuando otros objetos entran en su volumen.
+- **Resultado esperado:** La esfera no interfiere físicamente con otros objetos, pero dispara eventos OnTriggerEnter/Exit cuando otros objetos entran en su volumen, no se ve porque los otros dos caen.
 - **GIF:** ![Situación 8](./SIT_8.gif)
 
 ### Situación 9
 - **Descripción:** El plano es un objeto físico. El cubo es un objeto físico y la esfera es física y es Trigger.
-- **Configuración:** Todos con Rigidbody; la esfera tiene Collider con Is Trigger = true y Rigidbody (necesario para que los triggers físicos funcionen correctamente).
-- **Resultado esperado:** La esfera genera eventos de trigger cuando otros objetos entran/salen de su volumen. Dependiendo de cómo esté configurada (con o sin gravedad, cinemática, etc.), puede moverse físicamente o no.
+- **Configuración:** Todos con Rigidbody; la esfera tiene Collider con Is Trigger = true y Rigidbody.
+- **Resultado esperado:** La esfera genera eventos de trigger cuando otros objetos entran/salen de su volumen. Dependiendo de cómo esté configurada, igualmente es afectada por la gravedad y caen todos moverse físicamente o no.
 - **GIF:** ![Situación 9](./SIT_8.gif)
-
----
-
-**Notas rápidas sobre Rigidbody y Colliders:**
-- Un objeto **sin Rigidbody** es estático: actúa como colisionador estático y no se moverá por la física.
-- Un **Rigidbody dinámico** responde a fuerzas, gravedad y colisiones.
-- Un **Rigidbody cinemático** (IsKinematic) no responde a la física automáticamente pero sí puede mover otros cuerpos dinámicos si se mueve por scripting.
-- Para que **OnTriggerEnter/Exit** se invoquen, al menos uno de los objetos involucrados debe tener Rigidbody.
-
 ---
 
 ## Ejercicios propuestos (1 - 5)
@@ -156,7 +147,6 @@ public class Excercise3 : MonoBehaviour
   - Implementar `OnCollisionEnter` en un script que obtenga `collision.gameObject.name`.
   - Cambiar `renderer.material.color` al colisionar.
   - Asegurarse de que los objetos tengan Rigidbody y Colliders apropiados.
-- **Comprobación:** Al golpear objetos, comprobar la consola y observar el cambio de color.
 - **GIF:** ![Ejercicio 2](./EJ_2.gif)
 
 **Código:**
@@ -305,10 +295,8 @@ public class Excercise3 : MonoBehaviour
 - **Objetivo:** Crear una escena con distintos materiales físicos (resbaladizo, rugoso, rebote alto). Aplicar distintos Physic Materials a objetos. Lanzar los objetos con AddForce() al pulsar la tecla X y observar cómo cambian las reacciones.
 - **Puntos clave:**
   - Crear Physic Materials con diferentes valores de bounciness (rebote) y fricción (dynamic/static friction).
-  - Aplicar los materiales a los Colliders de los objetos.
+  - Aplicar los materiales a los Colliders de los objetos, que tengan collision y demás configuración para que los materiales colisionen y se genere la reacción.
   - Usar `Input.GetKeyDown(KeyCode.X)` para lanzar objetos con `AddForce`.
-  - Comparar comportamientos: objetos resbaladizos (baja fricción) vs. objetos rugosos (alta fricción), y objetos con alto rebote vs. sin rebote.
-- **Comprobación:** Pulsar X y observar el rebote, deslizamiento y desplazamiento según el material aplicado.
 - **GIF:** ![Ejercicio 5](./EJ_5.gif)
 **Código:**
 ```csharp
@@ -392,12 +380,12 @@ public class Excercise5 : MonoBehaviour
   
 - **Cinemática:** Un Rigidbody cinemático es útil para objetos animados por código que deben empujar cuerpos dinámicos sin ser afectados por fuerzas externas (por ejemplo, plataformas móviles).
 
-- **Masa y momento:** La masa relativa de los cuerpos altera completamente el intercambio de velocidad en colisiones. Experimenta con masas 10x y 100x para observar cómo un objeto ligero rebota violentamente mientras uno pesado apenas se inmuta.
+- **Masa y momento:** La masa relativa de los cuerpos altera completamente el intercambio de velocidad en colisiones. Experimenta con masas 10x y 100x para observar cómo un objeto ligero rebota violentamente mientras uno pesado apenas se inmuta, no obstante caen con la misma velocidad, ya que están en el vacio.
 
-- **Fricción y bounciness:** Los Physic Materials permiten afinar el comportamiento de deslizamiento y rebote sin necesidad de tocar scripts. Un material resbaladizo (fricción baja) hará que los objetos patinen; un material con alto rebote (bounciness alto) los hará rebotar repetidamente.
+- **Fricción y bounciness:** Los Physic Materials permiten afinar el comportamiento de deslizamiento y rebote sin necesidad de tocar scripts. Un material resbaladizo (fricción baja) hará que los objetos patinen; un material con alto rebote (bounciness alto) los hará rebotar repetidamente. Es muy interesante para el proyecto final
 
-- **Triggers:** Para detectar presencia sin interacción física (por ejemplo, zonas de daño, puntos de control), usa colliders con Is Trigger = true. Recuerda que las callbacks de trigger (`OnTriggerEnter/Exit/Stay`) requieren que al menos uno de los objetos involucrados tenga un Rigidbody.
+- **Triggers:** Para detectar presencia sin interacción física (por ejemplo, zonas de daño, puntos de control), usa colliders con Is Trigger = true. Recuerda que las callbacks de trigger (`OnTriggerEnter/Exit/Stay`) requieren que al menos uno de los objetos involucrados tenga un Rigidbody, posible fallo del que percatarse si no ocurre nada.
 
-- **Capas y colisiones selectivas:** Usa la Layer Collision Matrix para optimizar rendimiento y controlar qué objetos interactúan físicamente entre sí. Esto es especialmente útil en juegos complejos con muchos tipos de objetos.
+- **Capas y colisiones selectivas:** Usa la Layer Collision Matrix para optimizar rendimiento y controlar qué objetos interactúan físicamente entre sí. Esto es especialmente útil para interacciones complejas con muchos tipos de objetos en el posible proyecto final.
 
 ---
