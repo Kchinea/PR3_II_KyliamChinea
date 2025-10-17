@@ -151,7 +151,58 @@ public class Excercise3 : MonoBehaviour
 
 **Código:**
 ```csharp
-// Inserta aquí tu código para el Ejercicio 2
+using UnityEngine;
+
+public class Excercise2 : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+    Rigidbody rb;
+    Vector3 inputDir;
+    Renderer rend;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rend = GetComponent<Renderer>();
+    }
+
+    void Update()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        inputDir = new Vector3(h, 0f, v);
+    }
+
+    void FixedUpdate()
+    {
+        moveCharacter(inputDir);
+    }
+
+
+    void moveCharacter(Vector3 direction)
+    {
+        float y = rb.linearVelocity.y;
+        rb.linearVelocity = direction * moveSpeed;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, y, rb.linearVelocity.z);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(gameObject.name + " collided with " + collision.gameObject.name);
+
+        if (rend != null)
+        {
+            Color color = Color.gray;
+            Renderer otherRend = collision.gameObject.GetComponent<Renderer>();
+            if (otherRend != null)
+            {
+                color = otherRend.material.color;
+            }
+            rend.material.color = color;
+        }
+    }
+}
+
 ```
 
 ### Ejercicio 3 — Zona trigger que altera estado
